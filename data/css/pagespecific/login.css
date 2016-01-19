@@ -1,0 +1,69 @@
+body {
+    padding-top: 5rem;
+}
+
+input, input:focus, input:active{   
+    border: 1px solid #656363;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    height: 30px;
+    width: 100%;
+    max-width: 300px;
+    background-color: #212121;
+    color: #FFF;
+    font-size: 11px;
+    padding: 0 15px;
+    opacity: 0.9;
+    text-decoration: none;
+    outline: none;
+    -moz-box-shadow: 0 0 2px rgba(255,255,255,1);
+    -webkit-box-shadow: 0 0 2px rgba(255,255,255,1);
+    box-shadow: 0 0 2px rgba(255,255,255,1);
+    letter-spacing: 0.4px;
+
+    -webkit-transition: all .4s; /* Safari */
+    transition: all .4s;
+}
+
+input:hover {
+    background-color: #505050;
+
+    -webkit-transition: all .4s; /* Safari */
+    transition: all .4s;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    height: auto;
+}
+
+.checkbox{
+    text-align: left;
+    padding-left: 30px;
+}
+
+label {
+    display: block;
+}
+
+#pionier-icon {
+    width: 60px;
+}
+
+.ajaxloader {
+    display: none;
+}
+
+#errorbox_login, #errorbox_register {
+    display: inline-block;
+    font-size: 11px;
+    border: 1px solid #656363;
+    border-radius: 3px;
+    background-color: #212121;
+    padding: 5px 15px;
+    opacity: 0.9;
+    min-height: 30px;
+    width: 300px;
+    display: none;
+
+}

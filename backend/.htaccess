@@ -1,0 +1,22 @@
+<FilesMatch "\.(tpl|ini|htaccess|sql)$">
+order allow,deny
+deny from all
+</FilesMatch>
+
+RewriteEngine On
+# enter name of subdir with leading and trailing slash
+RewriteBase /pioniere/backend/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
+# RewriteRule ^(.*)$ index.php?/$1 [L]
+RewriteRule ^.*$ ./index.php?/$1 [L]
+
+
+
+
+
+
+

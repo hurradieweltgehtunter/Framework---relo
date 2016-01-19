@@ -1,0 +1,116 @@
+tr {
+	cursor: pointer
+}
+
+h2 {
+  border-bottom: 1px solid #ddd;
+}
+
+.whitebg {
+  background-color: #FFF;
+}
+
+.spacer {
+	margin-bottom: 20px;
+}
+
+
+.tab-pane {
+  border: none;
+  border-top: none;
+  padding: 25px;
+  background: #FFF;
+  color: #26292c;
+}
+
+.nav > li {
+  border: none;
+}
+
+.nav-tabs {
+  border-bottom: none;
+  padding: 10px 25px
+}
+
+
+
+.nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.42857143;
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid gray;
+  padding: 5px 10px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  border: none;
+  border-right: 1px solid gray;
+  color: #d5b254;
+  background: none;
+}
+
+.nav-tabs>li>a:hover {
+  border: none;
+  border-right: 1px solid gray;
+  background-color: transparent;
+  color: #d5b254;
+}
+
+.nav-tabs > li.first > a {
+  padding-left: 0px;
+}
+
+.nav-tabs > li.last > a {
+  border: none !important;
+}
+
+.nav_clientsearch .ajax-loader {
+  display: none;
+}
+
+#logout {
+  float: right;
+}
+
+/* TAB "MY ACCOUNT" */
+.profilepic_container {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.profilepic {
+  max-height: 150px;
+  max-width: 150px;
+  border: 1px solid #b1b1b1;
+}
+
+
+
+/* TAB CLIENTS*/
+
+.content-container {
+  padding: 15px;
+}
+
+td.notifier > div {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  margin: 0 5px;
+}
+
+
+.msg_count {
+    background-color: red;
+    text-align: center;
+    border-radius: 10px;
+    color: #FFF;
+}
+
+.update_notifier {
+  font-size: 20px;
+}
+
+
+

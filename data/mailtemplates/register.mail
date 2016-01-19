@@ -1,0 +1,8 @@
+<p>Hello,<br />
+<br />
+thank you for registering.</p>
+<br />
+<?php echo $title; ?>
+<p>Your RELO Team.</p><br />
+<br />
+<a href="<?php echo $activationlink; ?>"><?php echo $activationlink; ?></a>
