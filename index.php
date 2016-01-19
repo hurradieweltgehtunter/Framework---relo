@@ -8,4 +8,3 @@ define('__DEBUG', false);
 $system = new system();
 $system->load();
 $system->output();
-
