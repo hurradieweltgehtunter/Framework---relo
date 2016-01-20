@@ -2,6 +2,12 @@ body {
     padding-top: 5rem;
 }
 
+.activationmessage {
+    color: red;
+    border: 2px solid red;
+    padding: 15px;
+}
+
 input, input:focus, input:active{   
     border: 1px solid #656363;
     margin-bottom: 10px;

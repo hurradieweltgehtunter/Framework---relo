@@ -11,7 +11,7 @@
     				
     				$user = login::activate(); 
 	    			if($user->errmsg == '') 
-	    				echo 'Account aktiviert. bitte anmelden.'; 
+	    				echo '<div class="activationmessage">Account aktiviert. bitte anmelden.</div>'; 
 	    			else 
 	    				echo $user->errmsg; 
 	    		}

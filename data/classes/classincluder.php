@@ -26,7 +26,7 @@ $dirs = array();
 $dh = opendir($dir);
 
 while (false !== ($dirname = readdir($dh))) {
-    if ($dirname !== '.' && $dirname !== '..' && is_file($dirname) === false) {
+    if ($dirname !== '.' && $dirname !== '..' && is_file($dirname) === false && is_dir($dirname) === true) {
         $includes[] = 'custom/'.$dirname.'/'.$dirname.'.class.php';
     }
 };

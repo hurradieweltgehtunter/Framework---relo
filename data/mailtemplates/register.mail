@@ -5,4 +5,4 @@ thank you for registering.</p>
 <?php echo $title; ?>
 <p>Your RELO Team.</p><br />
 <br />
-<a href="<?php echo $activationlink; ?>"><?php echo $activationlink; ?></a>
+Click here to activate your account: <a href="<?php echo $activationlink; ?>"><?php echo $activationlink; ?></a>

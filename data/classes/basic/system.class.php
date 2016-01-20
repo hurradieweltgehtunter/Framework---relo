@@ -68,7 +68,7 @@ class system
             }
         } else {
             // Not Logged In
-            if (($this->requestedView == 'ajax' && (isset($_POST['module']) && ($_POST['module'] == 'login')))) {
+            if (($this->requestedView == 'ajax' && (isset($_POST['module']) && ($_POST['module'] == 'login'))) || $this->requestedView === 'api') {
             } else {
                 if ($this->requestedView != 'login') {
                     header('Location: login');
@@ -85,6 +85,19 @@ class system
             case 'ajax':
                 include 'data/classes/custom/'.$_POST['module'].'/'.$_POST['module'].'.ajaxhandler.php';
                 break;
+
+            case 'api':
+                switch (request::get(1)) {
+                    case '1.0':
+                        include 'data/classes/util/api/1.0/api.1.0.inc';
+                        include 'data/classes/util/api/1.0/api.1.0.controller.inc';
+                    break;
+
+                    default:
+                        echo 'wrong API version';
+                    break;
+                }
+            break;
 
             case 'upload':
                 include 'backend/classes/util/upload.class.php';

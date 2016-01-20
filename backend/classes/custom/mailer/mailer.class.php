@@ -63,7 +63,7 @@ class Mailer
      *
      * @var string
      */
-    private $_tplPath = 'data/mailtemplates/';
+    private $_tplPath = '../data/mailtemplates/';
 
     /**
      * Variable for self instacing.
