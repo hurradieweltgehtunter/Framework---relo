@@ -79,10 +79,13 @@ $pioneer = new user(request::get(1));
                                     <div class="form-group">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" class="autosave" id="newsletter"<?php
-                                                if($this->user->data['newsletter'] == 1)
+                                                <input type="checkbox" class="autosave" id="newsletter"
+                                                <?php
+                                                if ($this->user->data['newsletter'] === 1) {
                                                     echo ' checked';
-                                                ?>> Newsletter abboniert
+                                                }
+                                                ?>
+                                                > Newsletter abboniert
                                             </label>
                                         </div>
                                     </div>
@@ -126,14 +129,20 @@ $pioneer = new user(request::get(1));
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <h2>Neues Passwort</h2>
+                                <h2>Funktionen</h2>
                             </div>
                         </div>
 
                         <div class="row">
-                            <form id="newPassword" method="POST">
-                                <div class="col-sm-12">
-                                    <a href="#" class="btn btn-default" id="saveNewPassword">Neues Passwort zusenden</a>
+                            <form method="POST">
+                                <div class="col-sm-3">
+                                    <a href="#" class="btn btn-default" id="sendNewPassword">Neues Passwort zusenden</a>
+                                </div>
+                            </form>
+
+                            <form method="POST">
+                                <div class="col-sm-3">
+                                    <a href="#" class="btn btn-default" id="makeAdmin">zum Admin ernennen</a>
                                 </div>
                             </form>
                         </div>
@@ -141,8 +150,7 @@ $pioneer = new user(request::get(1));
                     <!-- TAB 1 END -->
 
                     <!-- TAB 2 BEGIN -->
-                    <div role="tabpanel" class="tab-pane" id="gallery">
-                        
+                    <div role="tabpanel" class="tab-pane" id="gallery">                        
                         <?php
                             echo client::getImages($pioneer->get('id'));
                         ?>

@@ -103,6 +103,19 @@ class User
         return $randString;
     }
 
+    public function generateRandomPassword(){
+    	$charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $randString = '';
+        $randStringLen = 6;
+
+        while (strlen($randString) < $randStringLen) {
+            $randChar = substr(str_shuffle($charset), mt_rand(0, strlen($charset)), 1);
+            $randString .= $randChar;
+        }
+
+        return $randString;
+    }
+
     public static function createPassword($rawPassword, $userId = 0)
     {
         $errmsg = false;
@@ -165,16 +178,15 @@ class User
 
         if ($stats == 0) {
             return 'Diese E-Mailadresse-Passwort-Kombination ist uns nicht bekannt.';
+            exit();
         }
+        
+        $user = new User($RS[0]['id']);
 
-        if ($RS[0]['status'] == 1) {
-            if (hash('sha512', ($RS[0]['salt'].$password)) == $RS[0]['password']) {
-                if ($storelogin == 1) {
-                    self::setCookie($RS[0]['id'], $RS[0]['password']);
-                }
-
-                $_SESSION['user_id'] = $RS[0]['id'];
-                $_SESSION['user'] = new self($RS[0]['id']);
+        if ($user->get('status') === 1) {
+            if (hash('sha512', ($user->get('salt').$password)) == $user->get('password')) {
+                
+            	$user->doLogin($storelogin);
 
                 return true;
             } else {
@@ -183,6 +195,16 @@ class User
         } else {
             return 'Dieser Account ist noch nicht aktiviert.';
         }
+    }
+
+
+    public function doLogin($storelogin = 0) {
+    	if ($storelogin == 1) {
+            self::setCookie($this->get('id'), $this->get('password'));
+        }
+
+        $_SESSION['user_id'] = $this->get('id');
+        $_SESSION['user'] = $this;
     }
 
     public static function setCookie($userId, $password)
@@ -306,61 +328,4 @@ class User
         return $users;
     }
 
-/*
-    // Zugriffsmethoden     **********************************************************************************************
-    
-    public function FullName()
-    {
-        if (self::$me == null)
-            self::$me = new user();
-        return self::$me->firstname . ' ' . self::$me->lastname;
-    }
-
-    // Statische Funktionen **********************************************************************************************
-
-    public static function isUser()
-    {
-        $ReturnValue = false;
-
-        if (self::$me == null)
-            self::$me = new user();
-
-        if (self::$me->getID() != 0)
-            $ReturnValue = true;
-
-        return ($ReturnValue);
-    }
-
-
-    public static function getContext()
-    {
-        if (self::$me == null)
-            self::$me = new user();
-
-        return (self::$me);
-    }
-
-    public static function id()
-    {
-        return $this->id;
-    }
-
-
-    public static function mail()
-    {
-        if (self::$me == null)
-            self::$me = new system();
-
-        return (self::$me->user['mail']);
-    }
-
-
-    public static function status()
-    {
-        if (self::$me == null)
-            self::$me = new user();
-
-        return (self::$me->getStatus());
-    }
-*/
 }

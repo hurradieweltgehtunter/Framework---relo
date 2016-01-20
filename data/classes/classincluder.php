@@ -1,4 +1,5 @@
 <?php
+
 /* load all classes */
 /* Classes from backend */
 
@@ -12,21 +13,20 @@ $includes[] = 'backend/classes/basic/log.class.php';
 $includes[] = 'backend/classes/custom/mailer/mailer.class.php';
 $includes[] = 'backend/classes/util/mailtemplate.class.php';
 
+$includes[] = 'backend/classes/basic/texter.class.php';
 
 //Frontend classes
 $includes[] = 'basic/user.class.php';
 
 /* --------------------------------------- */
 
-
 //include custom classes
-$dir = "data/classes/custom";
+$dir = 'data/classes/custom';
 $dirs = array();
-$dh  = opendir($dir);
+$dh = opendir($dir);
 
 while (false !== ($dirname = readdir($dh))) {
-    if($dirname != '.' && $dirname != '..' && !is_file($dirname))
-    	$includes[] = 'custom/' . $dirname . '/' . $dirname . '.class.php';
-}
-/* --------------------------------------- */
-?>
+    if ($dirname !== '.' && $dirname !== '..' && is_file($dirname) === false) {
+        $includes[] = 'custom/'.$dirname.'/'.$dirname.'.class.php';
+    }
+};

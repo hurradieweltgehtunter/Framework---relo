@@ -13,7 +13,7 @@ function autoSave(clientid)
 
             $('.autosave.update').each(function(){
                 
-                if($(this).attr('type') == 'text' && $(this).val() != '')
+                if($(this).attr('type') === 'text' && $(this).val() !== '')
                     fields[$(this).attr('id')] = $(this).val();
                 else if($(this).attr('type') == 'checkbox')
                 {
@@ -29,7 +29,7 @@ function autoSave(clientid)
                 comment = {
                     id: $(this).attr('data-id'),
                     value: $(this).val()
-                }
+                };
                 imgcomments.push(comment);
             });
             
@@ -42,7 +42,7 @@ function autoSave(clientid)
                 module: "beuser",
                 action: "saveData",
                 clientid: function(){
-                    if(clientid != undefined)
+                    if(clientid !== undefined)
                         return clientid;
                     else
                         return undefined;
@@ -85,7 +85,7 @@ function clientsearch(needle)
                 row = '<tr onclick="document.location=\'client/' + client.id + '\'"><td>' + client.firstname + '</td><td>' + client.lastname + '</td><td>' + client.city + '</td><td>' + client.phone + '</td><td>' + client.mail + '</td><td class="notifier"></td>';
                 
                 table.find('tbody').append(row);
-            })
+            });
 
             $("table#clients").trigger("updateAll", [ true ]);
 
@@ -97,6 +97,9 @@ function clientsearch(needle)
 notifyTimeout = null;
 function notify(msg)
 {
+    if(msg === 'undefined')
+        msg = 'Änderungen gespeichert';
+
     if($('.notifier').hasClass('notifying'))
         clearTimeout(notifyTimeout);
 
@@ -104,7 +107,7 @@ function notify(msg)
         notifyTimeout = setTimeout(function(){
             $('.notifier').animate({bottom: '-40px'}, 400, function(){
                 $('.notifier').removeClass('notifying');
-            })
+            });
         }, 3000);
     });
 }
@@ -134,10 +137,10 @@ GENERAL SPECIFICATIONS, DO NOT EDIT
             dataType:   'json',
             success:    function(rdata) 
                         {
-                            if(rdata.forward != '' && rdata.forward != undefined)
+                            if(rdata.forward !== '' && rdata.forward !== undefined)
                                 window.location = rdata.forward;
 
-                            if(rdata.reload != undefined)
+                            if(rdata.reload !== undefined)
                                 location.reload();
 
                             if (typeof callback == 'function') 
@@ -152,7 +155,7 @@ GENERAL SPECIFICATIONS, DO NOT EDIT
                             console.log(" - ");
                             console.log(errorThrown);
                         }
-        }
+        };
 
         if(typeof options != 'undefined')
             $.extend(true, defaultoptions, options);
@@ -182,9 +185,9 @@ GENERAL SPECIFICATIONS, DO NOT EDIT
             fields: autofills
         }, function(rdata){
             $('.autofill').each(function(){
-                if($(this).val() == '')
+                if($(this).val() === '')
                     $(this).val(rdata[$(this).attr('data-autofill')].text);
-            })
+            });
         });    
     }
     

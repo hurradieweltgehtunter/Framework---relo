@@ -39,7 +39,7 @@ function chatinit()
 $(document).ready(function(){
     $(window).resize(function(){
         resizeChat();
-    })
+    });
 
     chatinit();
 
@@ -58,13 +58,13 @@ $(document).ready(function(){
 	/* TAB MESSAGES */
     $('.chatinput_wrap form').on('submit', function(e){
         e.preventDefault();
-        if($(this).find('input').val() == '')
+        if ($(this).find('input').val() === '')
             return false;
         
         data = {
             text: $(this).find('input').val(),
             recipientId: clientId
-        }
+        };
 
         $.postJSONsecure({
             module: "beuser",
@@ -98,13 +98,46 @@ $(document).ready(function(){
     });
 
     $('.erplink').on('click', function(){
-        if($('#erp_link').val() != '')
+        if($('#erp_link').val() !== '')
         {
             $(this).attr('href', $('#erp_link').val());
         }
         else
             return false;
     });
+
+    $('#makeAdmin').on('click', function(){
+        $.postJSONsecure({
+            module: "beuser",
+            action: "MakeAdmin",
+            values: 
+            {
+                clientId: clientId
+            }
+        }, 
+        function(rdata){
+            $('#makeAdmin').html(rdata.txt);
+            notify();
+        });
+        return false;
+    });
+
+    $('#sendNewPassword').on('click', function(){
+        $.postJSONsecure({
+            module: "user",
+            action: "sendNewPassword",
+            values: 
+            {
+                clientId: clientId
+            }
+        }, 
+        function(rdata){
+
+        });
+        return false;
+    });
+
+
 
     /* AUTOSAVE FIELDS */
     $('#account .autosave').bind('change textInput input', function(){
@@ -122,4 +155,4 @@ $(document).ready(function(){
             autoSave($('#home').attr('data-clientid'));
         }
     });
-})
+});

@@ -1,33 +1,30 @@
 <?php
-
-class config 
+class config
 {
+    private static $_me = null;
 
-	private static $me = null;
+    public function __construct()
+    {
+        global $_CONFIG;
 
-	function __construct()
-	{
-		global $_CONFIG;
+        if (strpos(getcwd(), 'backend') !== false) {
+            require_once '../data/config/systemsettings.conf.inc';
+        } else {
+            require_once 'data/config/systemsettings.conf.inc';
+        }
 
-		if(strpos(getcwd(), 'backend') !== false)
-			require_once('../data/config/systemsettings.conf.php');
-		else
-			require_once('data/config/systemsettings.conf.php');
-		
-		foreach($_CONFIG as $key=>$val)
-			$this->$key = $val;
+        foreach ($_CONFIG as $key => $val) {
+            $this->$key = $val;
+        }
+    }//end __construct()
 
-	}
+    public static function get($key)
+    {
+        if (self::$_me === null) {
+            self::$_me = new self();
+        }
 
-	public static function get($key)
-	{
+        return self::$_me->$key;
+    }//end get()
+}//end class
 
-		if (self::$me == null)
-			self::$me = new config();
-				
-		return self::$me->$key;
-	}
-
-}
-
-?>
