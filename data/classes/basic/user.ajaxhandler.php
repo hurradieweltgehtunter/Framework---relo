@@ -1,5 +1,5 @@
 <?php
-
+/**
 switch($_POST['action'])
 {
 	case 'sendMessage':
@@ -8,5 +8,6 @@ switch($_POST['action'])
 
 		break;
 }
+*/
 
 ?>
