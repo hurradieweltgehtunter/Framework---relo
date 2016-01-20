@@ -6,7 +6,8 @@ $_txtr['client']['makeAdmin'][1]              = 'Adminrechte entziehen';
 $_txtr['client']['sendNewPassword']           = 'Neues Password versendet';
 $_txtr['client']['sendNewPasswordfail']       = 'Beim Versenden der Mail ist ein Fehler aufgetreten.';
 
-$_txtr['user']['notActivated']                = 'Dieser Account wurde nocht nicht aktiviert.';
+$_txtr['user']['accNotActivated']                = 'Dieser Account wurde nocht nicht aktiviert.';
+$_txtr['user']['accNotFound']                 = 'Diese E-Mailadresse-Passwort-Kombination ist uns nicht bekannt.';
 
 $_txtr['newPasswordMail']['subject']          = 'Dein neues Passwort';
 

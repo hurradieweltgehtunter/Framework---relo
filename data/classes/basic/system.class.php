@@ -1,6 +1,6 @@
 <?php
 
-class system
+class System
 {
     public static $me = null;
     public $currentView = '';
@@ -91,13 +91,13 @@ class system
                     case '1.0':
                         include 'data/classes/util/api/1.0/api.1.0.inc';
                         include 'data/classes/util/api/1.0/api.1.0.controller.inc';
-                    break;
+                        break;
 
                     default:
                         echo 'wrong API version';
-                    break;
+                        break;
                 }
-            break;
+                break;
 
             case 'upload':
                 include 'backend/classes/util/upload.class.php';
@@ -105,7 +105,6 @@ class system
                 break;
 
             default:
-
                 $this->renderContent($this->requestedView);
                 $this->OutputContainer = implode($this->container);
 

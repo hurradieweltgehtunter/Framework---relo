@@ -26,9 +26,9 @@ switch ($_POST['action']) {
                 echo json_encode(array('status' => Texter::get('client')['sendNewPasswordfail']));
             }
         }
-    break;
+        break;
 
     default:
         echo json_encode(array('errmsg' => 'Unknown request on module '.$_POST['module']));
-    break;
+        break;
 }//end switch

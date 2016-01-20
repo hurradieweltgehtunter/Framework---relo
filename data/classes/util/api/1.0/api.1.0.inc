@@ -1,43 +1,44 @@
 <?php
 
-class Api {
-	public $errmsg = false;
-	public $user;
-	public $about = array('version'=>'1.0');
+class Api
+{
 
-	public function __construct($request) {
+    public $errmsg = false;
 
-		if (isset($request['method']) === false || $request['method'] === '')
-		{
-			$this->errmsg = Texter::get('api')['noMethodSet'];
-			return false;
-		}
+    public $user;
 
-		if (isset($request['action']) === false || $request['action'] === '')
-		{
-			$this->errmsg = Texter::get('api')['noActionSet'];
-			return false;
-		}
+    public $about = array('version' => '1.0');
 
-		if(isset($request['mail']) === true && isset($request['password']) === true)
-		{
-			$RS = database::Query('SELECT * FROM users WHERE mail=:var1', array('var1'=>$request['mail']), $stats);
 
-			$hash = hash('sha512', $RS[0]['salt'].$request['password']);
+    public function __construct($request)
+    {
+        if (isset($request['method']) === false || $request['method'] === '') {
+            $this->errmsg = Texter::get('api')['noMethodSet'];
+            return false;
+        }
 
-			if($hash === $RS[0]['password'])
-			{
-				$user = new User($RS[0]['id']);
+        if (isset($request['action']) === false || $request['action'] === '') {
+            $this->errmsg = Texter::get('api')['noActionSet'];
+            return false;
+        }
 
-				if ($user->get('status') === 0)
-					$this->errmsg = Texter::get('user')['notActivated'];
-				else
-					$this->user = $user;
-				
-				
-			}
-			else
-				$this->errmsg = 'not authenticated';
-		}
-	}
-}
+        if (isset($request['mail']) === true && isset($request['password']) === true) {
+            $RS = database::Query('SELECT * FROM users WHERE mail=:var1', array('var1' => $request['mail']), $stats);
+
+            $user = new User();
+
+            if ($user->encryptPassword($request['password'], $RS[0]['salt']) === $RS[0]['password']) {
+                $user = new User($RS[0]['id']);
+
+                if ($user->get('status') === 0) {
+                    $this->errmsg = Texter::get('user')['notActivated'];
+                } else {
+                    $this->user = $user;
+                }
+            } else {
+                $this->errmsg = 'not authenticated';
+            }
+        }
+
+    }//end __construct()
+}//end class
