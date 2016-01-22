@@ -1,3 +1,5 @@
 data/classes/basic/user.class.php 
 	getAccessCode()		Make acccescode unique by checking the database
 	generateSalt()		Make salt unique by checking the database
+
+When logout in one tab, logout automatically in all tabs
