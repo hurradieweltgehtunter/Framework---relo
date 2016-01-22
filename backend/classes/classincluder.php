@@ -7,8 +7,7 @@ $includes[] = 'basic/database.class.php';
 $includes[] = 'basic/post.class.php';
 $includes[] = 'basic/log.class.php';
 
-$includes[] = '../../data/classes/basic/user.class.php';
-$includes[] = 'basic/beuser.class.php';
+$includes[] = '../../data/classes/custom/user/user.class.php';
 $includes[] = 'basic/texter.class.php';
 
 // ---------------------------------------

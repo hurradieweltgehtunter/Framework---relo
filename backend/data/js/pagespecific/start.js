@@ -1,3 +1,17 @@
+var chatInterval;
+function checkForMesssages() 
+{
+	chatInterval = setInterval(function(){
+		$.postJSONsecure({
+            module: "beuser",
+            action: "checkNewMessages"
+        }, 
+        function(rdata){
+        	notify(rdata.msg);
+        });
+	}, 1000);
+}
+
 var dropzoneform_beprofilepic = {};
 
 $(document).ready(function(){
@@ -36,12 +50,12 @@ $(document).ready(function(){
     // use the zebra stripe widget if you plan on hiding any rows (filter widget)
     widgets : [ "uitheme"],
     sortReset: true
-  })
+  });
 
 	$('.nav-tabs li:not(#logout) a').click(function (e) {
-		e.preventDefault()
-		$(this).tab('show')
-	})    
+		e.preventDefault();
+		$(this).tab('show');
+	});
 
 	//Dropzone for profilepic
 	dropzoneform_beprofilepic = $('#dropzoneform_beprofilepic').dropzone({ 
@@ -55,7 +69,7 @@ $(document).ready(function(){
 		init: function() {
 	    	this.on("success", function(file, response) 
 	    		{ 
-	    			var rdata = jQuery.parseJSON(response)
+	    			var rdata = jQuery.parseJSON(response);
 	    			if(rdata.status == 1)
 	    			{
 	    				$('.profilepic_container').html('<img class="profilepic" src="' + rdata.file.filename + '" />');
@@ -74,10 +88,11 @@ $(document).ready(function(){
 	    		});
 	  	},
 	  	error: function(file, response) {
+	  		var message;
 	        if($.type(response) === "string")
-	            var message = response; //dropzone sends it's own error messages in string
+	            message = response; //dropzone sends it's own error messages in string
 	        else
-	            var message = response.message;
+	            message = response.message;
 	        file.previewElement.classList.add("dz-error");
 	        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
 	        _results = [];

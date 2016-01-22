@@ -13,12 +13,12 @@ class Api
     public function __construct($request)
     {
         if (isset($request['method']) === false || $request['method'] === '') {
-            $this->errmsg = Texter::get('api')['noMethodSet'];
+            $this->errmsg = Texter::get('api|noMethodSet');
             return false;
         }
 
         if (isset($request['action']) === false || $request['action'] === '') {
-            $this->errmsg = Texter::get('api')['noActionSet'];
+            $this->errmsg = Texter::get('api|noActionSet');
             return false;
         }
 
@@ -31,7 +31,7 @@ class Api
                 $user = new User($RS[0]['id']);
 
                 if ($user->get('status') === 0) {
-                    $this->errmsg = Texter::get('user')['notActivated'];
+                    $this->errmsg = Texter::get('user|notActivated');
                 } else {
                     $this->user = $user;
                 }

@@ -16,7 +16,6 @@ $includes[] = 'backend/classes/util/mailtemplate.class.php';
 $includes[] = 'backend/classes/basic/texter.class.php';
 
 //Frontend classes
-$includes[] = 'basic/user.class.php';
 
 /* --------------------------------------- */
 
@@ -26,7 +25,7 @@ $dirs = array();
 $dh = opendir($dir);
 
 while (false !== ($dirname = readdir($dh))) {
-    if ($dirname !== '.' && $dirname !== '..' && is_file($dirname) === false && is_dir($dirname) === true) {
+    if ($dirname !== '.' && $dirname !== '..' && is_file($dirname) === false) {
         $includes[] = 'custom/'.$dirname.'/'.$dirname.'.class.php';
     }
 };

@@ -27,7 +27,7 @@ if ($api->errmsg === false) {
 
                 default:
                     $status = 0;
-                    $return = array('error' => Texter::get('api')['noActionSet']);
+                    $return = array('error' => Texter::get('api|noActionSet'));
                 break;
             }
         break;
@@ -35,7 +35,7 @@ if ($api->errmsg === false) {
         // end method get
         default:
             $status = 0;
-            $return = array('error' => Texter::get('api')['noMethodSet']);
+            $return = array('error' => Texter::get('api|noMethodSet'));
         break;
     }//end switch
 

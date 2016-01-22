@@ -98,8 +98,6 @@ class system
                     include 'classes/basic/system.ajaxhandler.php';
                 } elseif ($_POST['module'] == 'autofill') {
                     include 'classes/util/autofill.php';
-                } elseif ($_POST['module'] == 'beuser') {
-                    include 'classes/basic/beuser.ajaxhandler.php';
                 } elseif ($_POST['module'] == 'user') {
                     include '../data/classes/basic/user.ajaxhandler.php';
                 } else {

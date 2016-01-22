@@ -63,4 +63,27 @@ switch ($_POST['action']) {
             echo json_encode(array('success' => 1));
         }
         break;
+
+    case 'sendNewPassword':
+        $user             = new user($_POST['values']['clientId']);
+        $newPassword      = $user->generateRandomPassword();
+        $loginCredentials = $user->createPassword($newPassword);
+
+        if ($loginCredentials['success'] === 1) {
+            $result = mailer::sendNewPasswordMail($user, $newPassword);
+
+            if ($result === true) {
+                $user->set('salt', $loginCredentials['salt']);
+                $user->set('password', $loginCredentials['password']);
+                $user->save();
+                echo json_encode(array('status' => 'correct', 'msg' => Texter::get('client|sendNewPassword')));
+            } else {
+                echo json_encode(array('status' => Texter::get('client|sendNewPasswordfail')));
+            }
+        }
+        break;
+
+    default:
+        echo json_encode(array('errmsg' => 'Unknown request on module '.$_POST['module']));
+        break;
 }//end switch

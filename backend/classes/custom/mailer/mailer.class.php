@@ -4,6 +4,7 @@
  */
 class Mailer
 {
+
     /**
      * The subject of the mail.
      *
@@ -87,7 +88,7 @@ class Mailer
         }
 
         if (strpos(getcwd(), 'backend') !== false) {
-            $this->_file = '../' . $this->_file;
+            $this->_file = '../'.$this->_file;
         }
 
     }//end __construct()
@@ -130,11 +131,11 @@ class Mailer
     public function send()
     {
         if ($this->to === '') {
-            $this->errmsg = Texter::get('mailererror')['noRecipient'];
+            $this->errmsg = Texter::get('mailererror|noRecipient');
         }
 
         if ($this->subject === '') {
-            $this->errmsg = Texter::get('mailererror')['noSubject'];
+            $this->errmsg = Texter::get('mailererror|noSubject');
         }
 
         $header  = 'MIME-Version: 1.0'."\r\n";
@@ -144,7 +145,8 @@ class Mailer
         $this->result = mail($this->to, $this->subject, $this->body, $header);
 
         // Create the message
-        /*$message = Swift_Message::newInstance()
+        /*
+            $message = Swift_Message::newInstance()
 
             // Give the message a subject
             ->setSubject($this->subject)
@@ -158,27 +160,27 @@ class Mailer
             // Give it a body
             ->setBody($this->body, 'text/html');
 
-        
-        if(count($this->attachments) > 0)
-        {
+
+            if(count($this->attachments) > 0)
+            {
             foreach($this->attachments as $attachment)
                 $message->attach(Swift_Attachment::fromPath($attachment));
-        }
+            }
 
-        // Create the Transport
-        $transport = Swift_SmtpTransport::newInstance(config::get('mailer')['host'], config::get('mailer')['port'])
+            // Create the Transport
+            $transport = Swift_SmtpTransport::newInstance(config::get('mailer')['host'], config::get('mailer')['port'])
               ->setUsername(config::get('mailer')['user'])
               ->setPassword(config::get('mailer')['password']);
 
-        // Create the Mailer using your created Transport
-        $mailer = Swift_Mailer::newInstance($transport);
+            // Create the Mailer using your created Transport
+            $mailer = Swift_Mailer::newInstance($transport);
 
-        $logger = new Swift_Plugins_Loggers_EchoLogger();
-        $mailer->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
+            $logger = new Swift_Plugins_Loggers_EchoLogger();
+            $mailer->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
 
 
-        // Send the message
-        $this->result = $mailer->send($message);
+            // Send the message
+            $this->result = $mailer->send($message);
         */
 
     }//end send()
@@ -250,7 +252,7 @@ class Mailer
 
         $substituteEntities = array('newPassword' => $newPassword);
 
-        self::$_me->set('subject', Texter::get('newPasswordMail')['subject']);
+        self::$_me->set('subject', Texter::get('newPasswordMail|subject'));
         self::$_me->set('to', $user->get('mail'));
         self::$_me->set('body', self::$_me->processHTMLTemplate('newPassword.mail', $substituteEntities), 'text/html');
         self::$_me->send();
@@ -258,13 +260,11 @@ class Mailer
         return self::$_me->result;
 
     }//end sendNewPasswordMail()
-
-
 }//end class
 
 class Template
 {
-    
+
     /**
      * Path & filename of the templatefile to be used
      *
@@ -292,7 +292,7 @@ class Template
      *
      * @return object templateobject
      */
-    public function __construct($file=null)
+    public function __construct($file = null)
     {
         $this->_file = $file;
 
@@ -328,10 +328,8 @@ class Template
         extract($this->_data);
         ob_start();
         include $this->_file;
-        
+
         return ob_get_clean();
 
     }//end render()
-
-
 }//end class

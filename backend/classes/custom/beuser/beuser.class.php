@@ -23,11 +23,8 @@ class Beuser extends User
     {
         $RS = database::Query('SELECT id, salt, password, status, is_admin FROM users WHERE mail=:var1', array('var1' => $mail), $stats);
 
-        if ($stats == 0)
-            return 'Diese E-Mailadresse-Passwort-Kombination ist uns nicht bekannt.';
-        
-        if ($RS[0]['is_admin'] == 0) {
-            return 'Diese E-Mailadresse-Passwort-Kombination ist uns nicht bekannt.';
+        if ($stats == 0 || $RS[0]['is_admin'] == 0) {
+            return Texter::get('user|accNotFound');
         }
 
         if ($RS[0]['status'] == 1) {
@@ -41,10 +38,10 @@ class Beuser extends User
 
                 return true;
             } else {
-                return 'Diese E-Mailadresse-Passwort-Kombination ist uns nicht bekannt.';
+                return Texter::get('user|accNotFound');
             }
         } else {
-            return 'Dieser Account ist noch nicht aktiviert.';
+            return Texter::get('user|accNotActivated');
         }
 
     }//end verifyPassword()

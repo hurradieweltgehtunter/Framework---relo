@@ -34,7 +34,7 @@ switch ($_POST['action']) {
 
     case 'chatinit':
         $return = '';
-        $user = new beuser($_SESSION['beuser_id']);
+        $user   = new beuser($_SESSION['beuser_id']);
 
         $RS = $user->getChat($_POST['values']['lastmsgid'], $_POST['values']['clientid']);
         foreach ($RS as $key => $msg) {
@@ -44,8 +44,21 @@ switch ($_POST['action']) {
         echo json_encode(array('messages' => $RS, 'count' => count($RS)));
         break;
 
+    case 'checkNewMessages':
+        /*
+            * Handler for backend/start to check for new incoming messages
+         */
+        $RS = database::Query('SELECT * FROM messages WHERE recipient_id = 0 AND read_time = 0', array(), $stats);
+        if ($stats === 1) {
+            $user = new User($RS['sender_id']);
+            echo json_encode(array('msg' => Texter::get('beuser|newMessage', array($user->get('firstname', $user->get('lastname'))))));
+        } else {
+            echo json_encode(array('msg' => Texter::get('beuser|newMessages', array($stats))));
+        }
+        break;
+
     case 'setNewPassword':
-        $errmsg = false;
+        $errmsg            = false;
         $return['success'] = 0;
 
         if ($_POST['values']['password_new1'] !== $_POST['values']['password_new2']) {
@@ -69,10 +82,10 @@ switch ($_POST['action']) {
         } else {
             echo json_encode(array('success' => 1));
         }
-        break;
+    break;
 
     case 'makeAdmin':
-    	$user = new beuser($_POST['values']['clientId']);
+        $user = new beuser($_POST['values']['clientId']);
 
         if ($user->isAdmin() === true) {
             $user->set('is_admin', 0);
@@ -81,10 +94,10 @@ switch ($_POST['action']) {
         }
 
         $user->save();
-        echo json_encode(array('txt' => Texter::get('client')['makeAdmin'][$user->get('is_admin')]));
-        break;
+        echo json_encode(array('txt' => Texter::get('client|makeAdmin|' . $user->get('is_admin'))));
+    break;
 
     default:
-    	echo json_encode(array('errmsg' => 'Unknown request on module ' . $_POST['module']));
-    	break;
+        echo json_encode(array('errmsg' => 'Unknown request on module '.$_POST['module']));
+    break;
 }//end switch
