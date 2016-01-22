@@ -19,10 +19,13 @@ class Beuser extends User
     }//end isAdmin()
 
 
-    public static function verifyPassword($mail, $password, $storelogin = 0)
+    public function verifyPassword($mail, $password, $storelogin = 0)
     {
-        $RS = database::Query('SELECT id, salt, password, status, is_admin FROM users WHERE mail=:var1', array('var1' => $mail));
+        $RS = database::Query('SELECT id, salt, password, status, is_admin FROM users WHERE mail=:var1', array('var1' => $mail), $stats);
 
+        if ($stats == 0)
+            return 'Diese E-Mailadresse-Passwort-Kombination ist uns nicht bekannt.';
+        
         if ($RS[0]['is_admin'] == 0) {
             return 'Diese E-Mailadresse-Passwort-Kombination ist uns nicht bekannt.';
         }

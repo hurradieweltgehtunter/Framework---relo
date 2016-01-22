@@ -5,8 +5,9 @@ switch($_POST['action'])
 	case 'verifyLogin':
 		if (!isset($_POST['values']['storeLogin']))
 			$_POST['values']['storeLogin'] = 0;
-		
-		$return = user::verifyPassword($_POST['values']['mail'], $_POST['values']['password'], $_POST['values']['storeLogin']);
+
+		$user = new User();
+		$return = $user->verifyPassword($_POST['values']['mail'], $_POST['values']['password'], $_POST['values']['storeLogin']);
 
 		if($return === true)
 			echo json_encode(array('status'=>'correct', 'user'=>$_SESSION['user']));

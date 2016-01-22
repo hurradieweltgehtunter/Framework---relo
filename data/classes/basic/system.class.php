@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Europe/Berlin');
 class System
 {
     public static $me = null;
@@ -53,8 +53,7 @@ class System
 
             $user = new user($_SESSION['user_id']);
             if ($user->status !== false) {
-                user::verifyPassword($user->get('mail'), $user->get('password'));
-
+                $user->verifyPassword($user->get('mail'), $user->get('password'));
                 $this->user = $user;
 
                 if ($this->requestedView == 'login') {

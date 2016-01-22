@@ -2,7 +2,7 @@
 
 switch ($_POST['action']) {
     case 'verifyLogin':
-        $user  = new User();
+        $user  = new Beuser();
         $login = $user->verifyPassword($_POST['values']['mail'], $_POST['values']['password'], $_POST['values']['storeLogin']);
 
         if ($login === true) {

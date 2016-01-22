@@ -63,7 +63,7 @@ class Mailer
      *
      * @var string
      */
-    private $_tplPath = '../data/mailtemplates/';
+    private $_tplPath = 'data/mailtemplates/';
 
     /**
      * Variable for self instacing.
@@ -84,6 +84,10 @@ class Mailer
             include_once 'classes/util/swift/swift_required.php';
         } else {
             include_once 'backend/classes/util/swift/swift_required.php';
+        }
+
+        if (strpos(getcwd(), 'backend') !== false) {
+            $this->_file = '../' . $this->_file;
         }
 
     }//end __construct()
@@ -315,7 +319,7 @@ class Template
     /**
      * Renders the template
      *
-     * All placeholders in the template will be replaced. See mailer->prcessHTMLTemplate().
+     * All placeholders in the template will be replaced. See mailer->processHTMLTemplate().
      *
      * @return string Returns the final mailbody
      */
@@ -324,7 +328,7 @@ class Template
         extract($this->_data);
         ob_start();
         include $this->_file;
-
+        
         return ob_get_clean();
 
     }//end render()

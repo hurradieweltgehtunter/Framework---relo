@@ -9,7 +9,7 @@ function autoSave()
 
 		$('.autosave.update').each(function(){
 			
-			if($(this).attr('type') == 'text' && $(this).val() != '')
+			if($(this).attr('type') === 'text' && $(this).val() !== '')
 				fields[$(this).attr('id')] = $(this).val();
 			else if($(this).attr('type') == 'checkbox')
 			{
@@ -20,12 +20,12 @@ function autoSave()
 			}	
 		});
 
-		imgcomments = new Array();
+		imgcomments = [];
 		$('.imgcomment.update').each(function(){
 			comment = {
 				id: $(this).attr('data-id'),
 				comment: $(this).val()
-			}
+			};
 			imgcomments.push(comment);
 		});
 		
@@ -65,11 +65,11 @@ function appendNewImage(file){
 
 var myDropzone = {};
 
-
+var chatInterval;
 function chatinit() 
 {
 
-	setInterval(function(){
+	chatInterval = setInterval(function(){
 		$.postJSONsecure({
             module: "user",
             action: "chatinit",
@@ -90,8 +90,10 @@ function chatinit()
         		if(!$('.nav-tabs li a[href="#messages"]').parents('li').hasClass('active'))
         		{
         			el = $('.msgcounter');
-        			if(el.html() == '')
+        			if(el.html() === '')
+        			{
         				el.html(' (' + rdata.count + ')');
+        			}
         			else
         			{
         				str = el.html().replace('(', '');
@@ -117,15 +119,15 @@ $(document).ready(function(){
 	$('.chat').scrollTop($('.chat')[0].scrollHeight);
 
 	$('.nav-tabs li:not(#logout) a').click(function (e) {
-	  e.preventDefault()
-	  $(this).tab('show')
+	  e.preventDefault();
+	  $(this).tab('show');
 
 	  if($(this).attr('href') == '#messages')
 	  {
 	  	$('.msgcounter').html('');
 	  	$('.chat').scrollTop($('.chat')[0].scrollHeight);
 	  }
-	})
+	});
 	
 	chatinit();
 
@@ -140,7 +142,7 @@ $(document).ready(function(){
 		init: function() {
 	    	this.on("success", function(file, response) 
 	    		{ 
-	    			var rdata = jQuery.parseJSON(response)
+	    			var rdata = jQuery.parseJSON(response);
 	    			if(rdata.status == 1)
 	    			{
 	    				appendNewImage(rdata.file);
@@ -270,10 +272,12 @@ $(document).ready(function(){
 	/* TAB MESSAGES */
 	$('.chatinput_wrap form').on('submit', function(e){
 		e.preventDefault();
+		clearTimeout(chatInterval);
+
 		data = {
 			text: $(this).find('input').val(),
 			recipientId: 0
-		}
+		};
 
 		$.postJSONsecure({
             module: "user",
@@ -298,6 +302,7 @@ $(document).ready(function(){
 							                    '</div>');
         		$('#chatinput').val('');
         		$('.chat').scrollTop($('.chat')[0].scrollHeight);
+        		chatinit();
         	}
         });
 

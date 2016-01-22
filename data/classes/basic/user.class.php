@@ -206,7 +206,7 @@ class User
     }//end save()
 
 
-    public static function verifyPassword($mail, $password, $storelogin = 0)
+    public function verifyPassword($mail, $password, $storelogin = 0)
     {
         $RS = database::Query('SELECT id, salt, password, status FROM users WHERE mail=:var1', array('var1' => $mail), $stats);
 
