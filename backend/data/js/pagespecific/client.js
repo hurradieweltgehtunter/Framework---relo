@@ -85,7 +85,7 @@ $(document).ready(function(){
                                             '</div>'+
                                         '</div>'+
                                         '<div class="col-xs-1">'+
-                                            '<img class="chat_userimg" src="../data/img/_user/' + rdata.profilepic + '">'+
+                                            '<img class="chat_userimg" src="../data/img/_users/' + rdata.profilepic + '">'+
                                         '</div>'+
 
                                     '</div>');
@@ -109,7 +109,7 @@ $(document).ready(function(){
     $('#makeAdmin').on('click', function(){
         $.postJSONsecure({
             module: "beuser",
-            action: "MakeAdmin",
+            action: "makeAdmin",
             values: 
             {
                 clientId: clientId
