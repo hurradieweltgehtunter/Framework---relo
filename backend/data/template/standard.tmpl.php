@@ -26,7 +26,7 @@
         ?>
     </head>
     <body> 
-        <div class="notifier"></div>
+        <div id="notifier"></div>
         <?php 
         echo $this->OutputContainer;
         ?>  

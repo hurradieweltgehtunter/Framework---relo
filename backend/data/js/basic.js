@@ -24,7 +24,7 @@ function autoSave(clientid)
                 }   
             });
 
-            imgcomments = new Array();
+            imgcomments = [];
             $('.imgcomment.update').each(function(){
                 comment = {
                     id: $(this).attr('data-id'),
@@ -100,13 +100,13 @@ function notify(msg)
     if(msg === 'undefined')
         msg = 'Änderungen gespeichert';
 
-    if($('.notifier').hasClass('notifying'))
+    if($('#notifier').hasClass('notifying'))
         clearTimeout(notifyTimeout);
 
-    $('.notifier').html(msg).addClass('notifying').animate({bottom: 0}, 400, function(){
+    $('#notifier').html(msg).addClass('notifying').animate({bottom: 0}, 400, function(){
         notifyTimeout = setTimeout(function(){
-            $('.notifier').animate({bottom: '-40px'}, 400, function(){
-                $('.notifier').removeClass('notifying');
+            $('#notifier').animate({bottom: '-40px'}, 400, function(){
+                $('#notifier').removeClass('notifying');
             });
         }, 3000);
     });
