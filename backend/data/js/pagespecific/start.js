@@ -57,6 +57,8 @@ $(document).ready(function(){
 		$(this).tab('show');
 	});
 
+	
+
 	//Dropzone for profilepic
 	dropzoneform_beprofilepic = $('#dropzoneform_beprofilepic').dropzone({ 
 		url: "upload",

@@ -70,6 +70,17 @@ class Beuser extends User
             );
         }
 
+        if (count($RS) > 0) {
+            $ids = array();
+
+            foreach ($RS as $row) {
+                $ids[] = $row['id'];
+            }
+
+            database::Query('UPDATE messages SET read_time = ' . time() . ' WHERE id IN (' . implode(', ', $ids) . ') AND recipient_id = 0 AND read_time = 0', array());    
+        }
+        
+
         $RS = array_reverse($RS);
         return $RS;
 

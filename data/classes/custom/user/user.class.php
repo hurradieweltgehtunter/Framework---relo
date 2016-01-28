@@ -295,12 +295,24 @@ class User
         if ($lastmsgid == 0) {
             $RS = database::Query(
                 '	SELECT * FROM messages 
-									WHERE sender_id='.$this->data['id'].' OR recipient_id='.$this->data['id'].' 
-									ORDER BY id DESC LIMIT 6',
+					WHERE sender_id='.$this->data['id'].' OR recipient_id='.$this->data['id'].' 
+					ORDER BY id DESC LIMIT 6',
                 array()
             );
         } else {
-            $RS = database::Query('SELECT a.*, b.profilepic FROM messages a JOIN users b ON a.sender_id = b.id WHERE (a.sender_id='.$this->data['id'].' OR a.recipient_id= '.$this->data['id'].') AND a.id > '.$lastmsgid.'  ORDER BY a.id DESC LIMIT 6', array());
+            $RS = database::Query(' SELECT a.*, b.profilepic 
+                                    FROM messages a JOIN users b ON a.sender_id = b.id 
+                                    WHERE (a.sender_id='.$this->get('id') . ' OR a.recipient_id= '.$this->get('id') . ') AND a.id > '.$lastmsgid.'  ORDER BY a.id DESC LIMIT 6', array());
+        }
+
+        if (count($RS) > 0) {
+            $ids = array();
+
+            foreach ($RS as $row) {
+                $ids[] = $row['id'];
+            }
+
+            database::Query('UPDATE messages SET read_time = ' . time() . ' WHERE id IN (' . implode(', ', $ids) . ') AND recipient_id = ' . $this->get('id') . ' AND read_time = 0', array());    
         }
 
         $RS = array_reverse($RS);
