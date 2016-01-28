@@ -12,7 +12,7 @@
     		<div class="whitebg">
 	    		<ul class="nav nav-tabs">
 					<li role="presentation" class="first active"><a href="#overview">Kundenübersicht</a></li>
-					<li role="presentation" class=""><a href="#account">Meine Account</a></li>
+					<li role="presentation" class=""><a href="#account">Mein Account</a></li>
 					<li role="" class="nav_clientsearch">
 						<form class="form-inline">
 							<div class="form-group">
