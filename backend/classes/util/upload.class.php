@@ -77,15 +77,20 @@
                     {
                         case 'userimage':
                             database::Query('INSERT INTO files SET filename=:var1, user_id=:var2, comment=:var3, `date`=:var4', array("var1"=>$filename, "var2"=>$_SESSION['user_id'], "var3"=>"", "var4"=>$uploadtime), $imageid);
+                            Logging::log(5, $_SESSION['user']);
                             break;
 
                         case 'profilepic':
                             //Delete old profilepic
                             $RS = database::Query('SELECT profilepic FROM users WHERE id =' . $_SESSION['user_id'] . ';', array());
-                            if($RS[0]['profilepic'] != '' && file_exists($target_dir . $RS[0]['profilepic']) && strpos($RS[0]['profilepic'], '_default') === false)
+                            if ($RS[0]['profilepic'] != '' && file_exists($target_dir . $RS[0]['profilepic']) && strpos($RS[0]['profilepic'], '_default') === false) {
                                 unlink($target_dir . $RS[0]['profilepic']);
+                            }
 
                             database::Query('UPDATE users SET profilepic=:var1 WHERE id=' . $_SESSION['user_id'] . ';', array("var1"=>$filename));
+
+                            Logging::log(6, $_SESSION['user']);
+
                             break;
 
                         case 'beprofilepic':

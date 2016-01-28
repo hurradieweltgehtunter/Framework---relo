@@ -17,6 +17,7 @@ switch ($_POST['action']) {
         }
 
         $user->save();
+        logging::log(3, $user, $_POST['values']['user']);
         echo json_encode(array('status' => 1));
         break;
 
@@ -41,7 +42,7 @@ switch ($_POST['action']) {
 
     case 'setNewPassword':
         if ($_POST['values']['password_new1'] != $_POST['values']['password_new2']) {
-            $errmsg[]          = 'Die Passwörter sind nicht identisch';
+            $errmsg[]          = Texter::get('user|passwordNotEqualFail');
             $return['success'] = 0;
         } else {
             $return = $this->user->createPassword($_POST['values']['password_new1'], $this->user->get('id'));
@@ -61,6 +62,7 @@ switch ($_POST['action']) {
             echo json_encode(array('success' => 0, 'errmsg' => $errmsg));
         } else {
             echo json_encode(array('success' => 1));
+            Logging::log(7, $this->user);
         }
         break;
 
@@ -84,6 +86,6 @@ switch ($_POST['action']) {
         break;
 
     default:
-        echo json_encode(array('errmsg' => 'Unknown request on module '.$_POST['module']));
+        echo json_encode(array('errmsg' => Texter::get('system|unknownRequest', array($_POST['module']))));
         break;
 }//end switch

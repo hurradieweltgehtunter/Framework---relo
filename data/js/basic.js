@@ -8,7 +8,7 @@ function notify(msg)
         notifyTimeout = setTimeout(function(){
             $('.notifier').animate({bottom: '-40px'}, 400, function(){
                 $('.notifier').removeClass('notifying');
-            })
+            });
         }, 3000);
     });
 }
@@ -55,7 +55,7 @@ $(document).ready(function(){
                             console.log('ERROR');
                             console.log(rdata);
                         }
-        }
+        };
 
         if(typeof options != 'undefined')
             $.extend(true, defaultoptions, options);

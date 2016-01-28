@@ -6,14 +6,18 @@
 $includes[] = 'backend/classes/basic/dataprovider.class.php';
 $includes[] = 'backend/classes/basic/request.class.php';
 $includes[] = 'backend/classes/basic/database.class.php';
-
 $includes[] = 'backend/classes/basic/post.class.php';
 $includes[] = 'backend/classes/basic/log.class.php';
+$includes[] = 'backend/classes/basic/texter.class.php';
 
 $includes[] = 'backend/classes/custom/mailer/mailer.class.php';
-$includes[] = 'backend/classes/util/mailtemplate.class.php';
 
-$includes[] = 'backend/classes/basic/texter.class.php';
+$includes[] = 'backend/classes/util/mailtemplate.class.php';
+$includes[] = 'backend/classes/util/browser.class.php';
+
+
+
+
 
 //Frontend classes
 

@@ -40,7 +40,7 @@
 			    		<span id="errorbox_login">
 			    			 FEHLER
 			    		</span>
-			    		<img src="data/img/ajax-loader.gif" class="ajaxloader" />
+			    		<img src="data/img/logo_icon.png" class="ajaxloader" />
 			    	</div>
 		    	</div>
 		    </form>
@@ -67,7 +67,7 @@
 		        <div class="row">
 			    	<div class="col-xs-12" class="">
 			    		<span id="errorbox_register"></span>
-			    		<img src="data/img/ajax-loader.gif" class="ajaxloader" />
+			    		<img src="data/img/logo_icon.png" class="ajaxloader" />
 			    	</div>
 		    	</div>
 		    </form>

@@ -9,6 +9,10 @@ h2 {
     line-height: 24px;
 }
 
+.spacer {
+  margin-top: 25px;
+}
+
 #notifier {
     background-color: #d6ab40;
     position: fixed;

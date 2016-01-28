@@ -40,7 +40,7 @@
 										<th>Nachname</th> 
 										<th>Stadt</th> 
 										<th>Telefon</th> 
-										<th>E-Mail</th> 
+										<th>E-Mail</th>
 										<th class="tablesorter-noSort">&nbsp;</th>
 									</tr> 
 								</thead>

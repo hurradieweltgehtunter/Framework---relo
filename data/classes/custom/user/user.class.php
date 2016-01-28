@@ -50,13 +50,13 @@ class User
         $user   = new self();
 
         if ($data['data']['mail'] == '') {
-            $user->errmsg = 'Keine E-Mail-Adresse angegeben';
+            $user->errmsg = Texter::get('user|registrationNoMailFail');
         }
 
         database::Query('SELECT * FROM users WHERE mail=:var1', array('var1' => $data['data']['mail']), $stats);
 
         if ($stats > 0) {
-            $user->errmsg = 'Diese E-Mail-Adresse ist bereits registriert';
+            $user->errmsg = Texter::get('user|registrationMailFail');
         }
 
         $loginCredentials = $user->createPassword($data['password']);
@@ -66,7 +66,7 @@ class User
         }
 
         if ($data['password'] != $data['password2']) {
-            $user->errmsg = 'Passwörter stimmen nicht überein';
+            $user->errmsg = Texter::get('user|passwordNotEqualFail');
         }
 
         if ($user->errmsg == '') {
@@ -78,6 +78,7 @@ class User
             $user->set('salt', $loginCredentials['salt']);
             $user->set('password', $loginCredentials['password']);
             $user->save();
+            logging::log(1, $user);
         }
 
         return $user;
@@ -145,7 +146,7 @@ class User
         $errmsg = false;
 
         if (strlen($rawPassword) < 6) {
-            $errmsg = 'Dieses Passwort ist zu kurz';
+            $errmsg = Texter::get('user|passwordTooShort');
         }
 
         if ($errmsg === false) {
@@ -242,6 +243,8 @@ class User
         $_SESSION['user_id'] = $this->get('id');
         $_SESSION['user']    = $this;
 
+        Logging::log(4, $this);
+
     }//end doLogin()
 
 
@@ -324,15 +327,20 @@ class User
             $user = new self($RS[0]['id']);
             $user->set('status', 1);
             $user->save();
+            Logging::log(2, $user);
         } else {
             $user         = new self();
-            $user->errmsg = 'Dieser Code ist nicht gültig';
+            $user->errmsg = Texter::get('user|activationFail');
         }
 
         return $user;
 
     }//end activate()
 
+    public function getLog()
+    {
+        return database::Query('SELECT timestamp as date, text, data FROM log WHERE userId = ' . $this->get('id') . ' ORDER BY timestamp DESC LIMIT 100', array());
+    }
 
     // FRONTEND FUNCTIONS END
     public function set($key, $value)

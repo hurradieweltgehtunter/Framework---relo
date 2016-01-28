@@ -30,6 +30,7 @@ class System
                 require_once config::get('root').$include;
             }
         }
+        session_start();
     }
 
     private function parseUrl()

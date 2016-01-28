@@ -169,8 +169,6 @@ input, input:active, input:focus {
   background: #f6eed9;
 }
 
-
-
 .chat_relo .chat_message {
   background: #e9e9e9;
 }
@@ -184,8 +182,12 @@ input, input:active, input:focus {
 
 .chatinput_wrap {
   border-top: 0;
-  padding: 15px 25px;
+  padding: 15px 40px 15px 25px;
   border: 1px solid #dfdfdf;
+}
+
+.chatinput_wrap .col-xs-1 {
+  padding: 0;
 }
 
 #chatinput {
@@ -193,12 +195,26 @@ input, input:active, input:focus {
     background: #FFF;
     width: 100%;
     border: none;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #D3D3D3;
     height: 30px;
     padding-top: 10px;
     padding-bottom: 8px;
 }
+
+#chatsubmit {
+  border: 1px solid #D3D3D3;
+  padding: 5px 15px;
+}
+
 /* TAB MESSAGES END */
+
+
+/* TAB LOG */
+#userlog {
+    
+}
+/* TAB LOG END */
+
 
 /* DROPZONE */
 

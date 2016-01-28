@@ -1,7 +1,6 @@
 <?php
 $pioneer = new user(request::get(1));
 ?>
-<div class="notifier">Daten gespeichert</div>
 
 <div class="container">
     <div class="row spacer">
@@ -14,15 +13,16 @@ $pioneer = new user(request::get(1));
         <div class="col-sm-12">
                 <ul class="nav nav-tabs">
                   <li id="overview" class="first"><a href="start">< zur Übersicht</a></li>
-                  <li role="presentation" class="active"><a href="#home">Kundenaccount</a></li>
+                  <li role="presentation" class=""><a href="#home">Kundenaccount</a></li>
                   <li role="presentation" class=""><a href="#gallery">Pionier-Bilder</a></li>
-                  <li role="presentation" class="last"><a href="#messages">Support</a></li>
+                  <li role="presentation" class=""><a href="#messages">Support</a></li>
+                  <li role="presentation" class="last active"><a href="#log">Log</a></li>
                   <li role="" id="logout" class="last"><a href="logout">Logout</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <!-- TAB 1 BEGIN -->
-                    <div role="tabpanel" class="tab-pane active" id="home" data-clientid="<?php echo $pioneer->get('id'); ?>">
+                    <div role="tabpanel" class="tab-pane" id="home" data-clientid="<?php echo $pioneer->get('id'); ?>">
 
                         <div class="row">
                             <div class="col-xs-12">
@@ -31,7 +31,11 @@ $pioneer = new user(request::get(1));
                         </div>
 
                         <div class="row">
-                            <div class="col-xs-11">
+                            <div class="col-xs-6">
+                                <img src="../data/img/_users/<?php echo $pioneer->get('profilepic'); ?>" />
+                            </div>
+
+                            <div class="col-xs-5">
                                 <div class="form-group">
                                     <label for="firstname">Link zum ERP</label>
                                     <input type="text" class="form-control autosave" id="erp_link" value="<?php echo $pioneer->get('erp_link'); ?>">
@@ -43,7 +47,7 @@ $pioneer = new user(request::get(1));
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row spacer">
                             <div class="col-sm-6">
                                 <form>
                                     <div class="form-group">
@@ -157,6 +161,7 @@ $pioneer = new user(request::get(1));
                     </div>
                     <!-- TAB 2 END -->
 
+                    <!-- TAB 3 BEGIN -->
                     <div role="tabpanel" class="tab-pane" id="messages">
                         <h3>Support</h3>
                         <p>
@@ -171,11 +176,29 @@ $pioneer = new user(request::get(1));
 
                         <div class="chatinput_wrap">
                                 <form>
-                                    <input type="text" id="chatinput" autocomplete="off" placeholder="Verfasse eine Nachricht..." autofocus>
+                                    <div class="row">
+                                        <div class="col-xs-11">
+                                            <input type="text" id="chatinput" autocomplete="off" placeholder="Verfasse eine Nachricht..." autofocus>
+                                        </div>
+
+                                        <div class="col-xs-1">
+                                            <input id="chatsubmit" type="submit" value="Senden" />
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         <div class="clear"></div>  
                     </div>
+                    <!-- TAB 3 END -->
+
+                    <!-- TAB 4 BEGIN -->
+                    <div role="tabpanel" class="tab-pane active" id="log">
+                        <h3>Log</h3>
+                        <?php
+                            echo client::getLog($pioneer);
+                        ?>
+                    </div>
+                    <!-- TAB 4 END -->
                 </div>
             </div>
         </div>

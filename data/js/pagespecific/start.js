@@ -225,12 +225,15 @@ $(document).ready(function(){
 
 	/* AUTOSAVE FIELDS */
 	$('body').on('change textInput input', '.autosave, .imgcomment', function(){
-	//$('.autosave, .imgcomment').bind('change textInput input', function(){
-		$(this).addClass('update');
-		autoSave({
-			field:$(this).attr('id'),
-			value: $(this).val()
-		});
+		if ($(this).hasClass('update') === false && $(this).val() != $(this).attr('value')) {
+			$(this).addClass('update');
+			$(this).attr('value', $(this).val());
+			autoSave({
+				field:$(this).attr('id'),
+				value: $(this).val()
+			});	
+		}
+		
 	});
 
 	$('input[type="checkbox"].autosave').on('click', function(){

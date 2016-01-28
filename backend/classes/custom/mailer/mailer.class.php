@@ -231,6 +231,10 @@ class Mailer
         self::$_me->set('body', self::$_me->processHTMLTemplate('register.mail', $substituteEntities), 'text/html');
         self::$_me->send();
 
+        if(self::$_me->result == 1) {
+            Logging::log(100, $user);
+        }
+
         return self::$_me->result;
 
     }//end sendRegistrationMail()
@@ -256,6 +260,10 @@ class Mailer
         self::$_me->set('to', $user->get('mail'));
         self::$_me->set('body', self::$_me->processHTMLTemplate('newPassword.mail', $substituteEntities), 'text/html');
         self::$_me->send();
+
+        if(self::$_me->result == 1) {
+            Logging::log(101, $user);
+        }
 
         return self::$_me->result;
 

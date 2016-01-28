@@ -1,6 +1,6 @@
 function getSearchParameters() {
       var prmstr = window.location.search.substr(1);
-      return prmstr != null && prmstr != "" ? transformToAssocArray(prmstr) : {};
+      return prmstr !== null && prmstr !== "" ? transformToAssocArray(prmstr) : {};
 }
 
 function transformToAssocArray( prmstr ) {
@@ -17,12 +17,12 @@ $(document).ready(function(){
 
 	$.backstretch("data/img/bg.jpg");
 
-	getSearchParameters()
+	getSearchParameters();
 
 	$('#form_login').on('submit', function(){
 
 		$('#errorbox_login').hide();
-		$(this).find('.ajaxloader').show();
+		$(this).find('.ajaxloader').addClass('AJAXrotate').show();
 
 		$.postJSONsecure(
 			{
@@ -41,14 +41,14 @@ $(document).ready(function(){
 		        }
 		    }, 
 			function(rdata){
-				$('#form_login').find('.ajaxloader').hide();
-
+				
 				if(rdata.status == 'correct')
 					window.location = "start";
 				else
 				{
+					$('#form_login').find('.ajaxloader').hide().removeClass('AJAXrotate');
 					$('#errorbox_login').html(rdata.status).css({display: "inline-block"});
-				}
+				}	
 			}
 		);
 
@@ -59,7 +59,7 @@ $(document).ready(function(){
 		e.preventDefault();
 
 		$('#errorbox_register').hide();
-		$(this).find('.ajaxloader').show();
+		$(this).find('.ajaxloader').addClass('AJAXrotate').show();
 
 		data = {
 			data: {
@@ -77,7 +77,7 @@ $(document).ready(function(){
 
 		$(this).find('input:not([type="submit"])').each(function(){
 			data[$(this).attr('id')] = $(this).val();
-		})
+		});
 
 		$.postJSONsecure(
 			{
@@ -86,10 +86,10 @@ $(document).ready(function(){
 		        values: data
 		    }, 
 			function(rdata){
-				$('#form_register').find('.ajaxloader').hide();
-
+				
 				if(rdata.status == 'correct')
 				{
+					$('#form_register').find('.ajaxloader').hide().removeClass('AJAXrotate');
 					$('#form_register .input_container').slideUp(300);
 					$('#errorbox_register').html(rdata.msg).css({display: "inline-block"});
 				}
