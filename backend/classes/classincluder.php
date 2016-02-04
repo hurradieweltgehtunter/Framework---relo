@@ -9,6 +9,7 @@ $includes[] = 'basic/log.class.php';
 $includes[] = 'basic/texter.class.php';
 
 $includes[] = 'util/browser.class.php';
+$includes[] = 'util/imageManipulator.class.php';
 
 $includes[] = '../../data/classes/custom/user/user.class.php';
 

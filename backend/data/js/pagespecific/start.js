@@ -62,7 +62,7 @@ $(document).ready(function(){
 	//Dropzone for profilepic
 	dropzoneform_beprofilepic = $('#dropzoneform_beprofilepic').dropzone({ 
 		url: "upload",
-		maxFilesize: 1,
+		maxFilesize: 5,
 		uploadMultiple: true,
 		dictDefaultMessage: 'Profilbild hier ablegen',
 		sending: function(file, xhr, formData) {

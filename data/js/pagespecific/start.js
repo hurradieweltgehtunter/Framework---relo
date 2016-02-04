@@ -134,7 +134,7 @@ $(document).ready(function(){
 	//Dropzone for userimages (#gallery)
 	myDropzone = $('#dropzoneform').dropzone({ 
 		url: "upload",
-		maxFilesize: 1,
+		maxFilesize: 5,
 		uploadMultiple: true,
 		sending: function(file, xhr, formData) {
 		    formData.append("action", "userimage");
@@ -290,19 +290,17 @@ $(document).ready(function(){
         function(rdata){
         	if(rdata.status == 1)
         	{
-        		$('.chat').append('	<div class="row chat_entry chat_client" data-msgid="' + rdata.msgid + '">'+
-							                        '<div class="col-xs-12 col-sm-11">'+
-							                        	'<div class="chat_time">'+
-								                            rdata.time +
-								                        '</div>'+
-								                        '<div class="chat_message">'+
-							                        		data.text +
-							                        	'</div>'+
-							                        '</div>'+
-							                        '<div class="col-xs-1">'+
-							                        	'<img class="chat_userimg" src="data/img/_users/' + rdata.profilepic + '">'+
-							                        '</div>'+
-							                    '</div>');
+        		$('.chat').append('	<div class="row chat_entry chat_client" data-msgid="' + rdata.msgid + '">' +
+				                        '<div class="col-xs-6 col-xs-offset-5 text-right chat_message">' +
+				                        	'<div class="chat_time text-right">' +
+					                        	rdata.username + ' | ' + rdata.time + '' +
+					                        '</div>' +
+				                        	data.text +
+				                        '</div>' +
+				                        '<div class="col-xs-1">' +
+				                        	'<img class="chat_userimg" src="data/img/_users/' + rdata.profilepic + '">' +
+				                        '</div>' +
+				                    '</div>');
         		$('#chatinput').val('');
         		$('.chat').scrollTop($('.chat')[0].scrollHeight);
         		chatinit();

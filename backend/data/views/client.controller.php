@@ -61,39 +61,34 @@ class client extends system
 
         foreach ($RS as $msg) {
             if ($msg['recipient_id'] == 0) {
-                // RELO MSG
-                $return .= '<div class="row chat_entry chat_client" data-msgid="'.$msg['id'].'">
+                // FROM client
+                $return .= '<div class="row chat_entry chat_relo" data-msgid="' . $msg['id'] . '">
 		                        <div class="col-xs-1">
-		                        	<img class="chat_userimg" src="../data/img/_users/'.$client->get('profilepic').'">
+		                        	<img class="chat_userimg" src="../data/img/_users/_thumbs/' . $client->get('profilepic') . '">
 		                        </div>
 
-		                        <div class="col-xs-12 col-sm-11">
+		                        <div class="col-xs-6 chat_message">
 		                        	<div class="chat_time">
-			                            '.date('d.m.Y H:i', $msg['time']).'
+		                        		' . $client->get('firstname') . ' ' . $client->get('lastname') . ' | ' . date('d.m.Y H:i', $msg['time']) . '
 			                        </div>
-		                        	<div class="chat_message">
-		                        		'.$msg['text'].'
-		                        	</div>
+		                        		' . $msg['text'] . '
 		                        </div>
 		                    </div>';
-            }
-
-            if ($msg['recipient_id'] == $clientid) {
+            } else if ($msg['recipient_id'] == $clientid) {
+            	//FROM RELO
                 $messenger = new beuser($msg['sender_id']);
 
-                $return .= '<div class="row chat_entry chat_relo" data-msgid="'.$msg['id'].'">
-		                        
-		                        <div class="col-xs-12 col-sm-11">
-		                        	<div class="chat_time">
-			                            '.date('d.m.Y H:i', $msg['time']).'
+                $return .= '<div class="row chat_entry chat_client" data-msgid="' . $msg['id'] . '">
+
+		                        <div class="col-xs-6 col-xs-offset-5 text-right chat_message">
+		                        	<div class="chat_time text-right">
+			                        	' . $user->get('firstname') . ' ' . $user->get('lastname') . ' | ' . date('d.m.Y H:i', $msg['time']) . '
 			                        </div>
-			                        <div class="chat_message">
-		                        		'.$msg['text'].'
-		                        	</div>
-		                        	
+		                        		' . $msg['text'] . '
 		                        </div>
+
 		                        <div class="col-xs-1">
-		                        	<img class="chat_userimg" src="../data/img/_users/'.$messenger->get('profilepic').'">
+		                        	<img class="chat_userimg" src="../data/img/_users/_thumbs/' . $user->get('profilepic') . '">
 		                        </div>
 		                    </div>';
             }

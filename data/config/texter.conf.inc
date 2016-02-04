@@ -27,6 +27,11 @@ $_txtr['api']['noActionSet'] = 'no action set. aborting.';
 
 $_txtr['sysem']['unknownRequest'] = 'Unknown request on module :var1';
 
+//UPLOAD MESSAGES
+$_txtr['upload']['wrongFiletype']  = 'Falscher Dateityp. Nur jpg, png und gif erlaubt. Datei wurde nicht hochgeladen.';
+$_txtr['upload']['fileTooBig']  = 'Deine Datei ist zu groß. Max. 1MB. Datei wurde nicht hochgeladen.';
+
+
 // LOG MESSAGES
 // User actions (1-99)
 $_txtr['log'][1]  = 'User registriert.';

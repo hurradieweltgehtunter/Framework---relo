@@ -150,6 +150,7 @@ input, input:active, input:focus {
   border-bottom-right-radius: 0;
   border-bottom: 0;
   overflow: auto;
+  height: 500px;
 }
 
 .chat_entry {
@@ -157,7 +158,8 @@ input, input:active, input:focus {
 }
 .chat .chat_message {
   min-height: 50px;
-  padding: 5px 15px;
+  padding: 5px 15px 6px 15px;
+  border-radius: 5px;
 }
 
 .chat .chat_userimg {
@@ -174,9 +176,7 @@ input, input:active, input:focus {
 }
 
 .chat_relo .chat_time, .chat_client .chat_time {
-  float: right;
-  margin: 0 0 0 25px ;
-  padding: 3px 5px 0;
+  margin: 3px 0 5px 0;
   font-size: 8px;
 }
 

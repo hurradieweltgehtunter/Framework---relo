@@ -11,6 +11,10 @@ class User
 
     public $errmsg = '';
 
+    public $pathProfilePic = '../data/img/_users/';
+
+    public $pathProfilePicThumb = '../data/img/_users/_thumbs/';
+
     public static $me = null;
 
 
@@ -312,7 +316,7 @@ class User
                 $ids[] = $row['id'];
             }
 
-            database::Query('UPDATE messages SET read_time = ' . time() . ' WHERE id IN (' . implode(', ', $ids) . ') AND recipient_id = ' . $this->get('id') . ' AND read_time = 0', array());    
+            database::Query('UPDATE messages SET read_time = ' . time() . ' WHERE id IN (' . implode(', ', $ids) . ') AND recipient_id = ' . $this->get('id') . ' AND read_time = 0', array());
         }
 
         $RS = array_reverse($RS);
@@ -367,4 +371,30 @@ class User
         return $this->data[$key];
 
     }//end get()
+
+    public function createThumbnail()
+    {
+        $im = new ImageManipulator($this->pathProfilePic . $this->get('profilepic'));
+
+        $centerX = round($im->getWidth() / 2);
+        $centerY = round($im->getHeight() / 2);
+
+        if ($im->getWidth() >= $im->getHeight()) {
+            $x1 = $centerX - $centerY;
+            $y1 = 0;
+
+            $x2 = $centerX + $centerY;
+            $y2 = $im->getHeight();
+        } else {
+            $x1 = 0;
+            $y1 = $centerY - $centerX;
+
+            $x2 = $im->getWidth();
+            $y2 = $centerY + $centerX;
+        }
+
+        $im->crop($x1, $y1, $x2, $y2); // takes care of out of boundary conditions automatically
+        $im->resample(50, 50, true);
+        $im->save($this->pathProfilePicThumb . $this->get('profilepic'));
+    }
 }//end class

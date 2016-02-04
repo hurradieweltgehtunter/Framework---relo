@@ -157,6 +157,7 @@ input, input:active, input:focus {
 .chat .chat_message {
   min-height: 50px;
   padding: 5px 15px;
+  border-radius: 5px;
 }
 
 .chat .chat_userimg {
@@ -173,10 +174,8 @@ input, input:active, input:focus {
 }
 
 .chat_client .chat_time, .chat_relo .chat_time {
-  float: right;
-  margin: 0 0 0 25px;
-  padding: 3px 5px 0;
   font-size: 8px;
+  margin: 3px 0 5px 0;
 }
 
 .chatinput_wrap {

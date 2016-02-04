@@ -1,6 +1,8 @@
 function resizeChat() 
 {
-    $('.chat').height($(window).height() - $('.chat').offset().top - $('.chatinput_wrap').outerHeight() - 66);
+    height = $(window).height() - $('.chat').offset().top - $('.chatinput_wrap').outerHeight() - 66;
+    console.log($('.chat').offset().top);
+    $('.chat').height(height);
     $('.chat').scrollTop($('.chat')[0].scrollHeight);
 }
 
@@ -40,7 +42,8 @@ $(document).ready(function(){
     $(window).resize(function(){
         resizeChat();
     });
-
+    setTimeout(resizeChat, 500);
+    
     chatinit();
 
 	$('.nav-tabs li[role="presentation"] a').click(function (e) {
@@ -84,20 +87,16 @@ $(document).ready(function(){
         function(rdata){
             if(rdata.status == 1)
             {
-                $('.chat').append(' <div class="row chat_entry chat_relo" data-msgid="'  + rdata.msgid + '">'+
-                                        
-                                        '<div class="col-xs-12 col-sm-11">'+
-                                            '<div class="chat_time">'+
-                                                rdata.time +
-                                            '</div>'+
-                                            '<div class="chat_message">'+
-                                                data.text +
-                                            '</div>'+
-                                        '</div>'+
-                                        '<div class="col-xs-1">'+
-                                            '<img class="chat_userimg" src="../data/img/_users/' + rdata.profilepic + '">'+
-                                        '</div>'+
-
+                $('.chat').append(' <div class="row chat_entry chat_client" data-msgid="' + rdata.msgid + '">' +
+                                        '<div class="col-xs-6 col-xs-offset-5 text-right chat_message">' +
+                                            '<div class="chat_time text-right">' +
+                                                rdata.username + ' | ' + rdata.time + '' +
+                                            '</div>' +
+                                            data.text +
+                                        '</div>' +
+                                        '<div class="col-xs-1">' +
+                                            '<img class="chat_userimg" src="../data/img/_users/_thumbs/' + rdata.profilepic + '">' +
+                                        '</div>' +
                                     '</div>');
                 $('#chatinput').val('');
                 $('.chat').scrollTop($('.chat')[0].scrollHeight);

@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 class start extends system
 {
@@ -61,16 +61,14 @@ class start extends system
 				//msg from relo
 				$return .= '<div class="row chat_entry chat_relo" data-msgid="' . $msg['id'] . '">
 		                        <div class="col-xs-1">
-		                        	<img class="chat_userimg" src="data/img/_users/' . $remoteuser->get('profilepic') . '">
+		                        	<img class="chat_userimg" src="data/img/_users/_thumbs/' . $remoteuser->get('profilepic') . '">
 		                        </div>
 
-		                        <div class="col-xs-12 col-sm-11">
+		                        <div class="col-xs-6 chat_message">
 		                        	<div class="chat_time">
-			                            ' . date('d.m.Y H:i', $msg['time']) . '
+		                        		Florian Lenz ' . date('d.m.Y H:i', $msg['time']) . '
 			                        </div>
-		                        	<div class="chat_message">
 		                        		' . $msg['text'] . '
-		                        	</div>
 		                        </div>
 		                    </div>';
 			}
@@ -79,18 +77,16 @@ class start extends system
 			{
 				//msg sent by client
 				$return .= '<div class="row chat_entry chat_client" data-msgid="' . $msg['id'] . '">
-		                        <div class="col-xs-12 col-sm-11">
-			                        <div class="chat_time">
-			                            ' . date('d.m.Y H:i', $msg['time']) . '
+		                        
+		                        <div class="col-xs-6 col-xs-offset-5 text-right chat_message">
+		                        	<div class="chat_time text-right">
+			                        	Florian Lenz | ' . date('d.m.Y H:i', $msg['time']) . '
 			                        </div>
-
-			                        <div class="chat_message">
 		                        		' . $msg['text'] . '
-		                        	</div>
 		                        </div>
 
 		                        <div class="col-xs-1">
-		                        	<img class="chat_userimg" src="data/img/_users/' . $user->get('profilepic') . '">
+		                        	<img class="chat_userimg" src="data/img/_users/_thumbs/' . $user->get('profilepic') . '">
 		                        </div>
 		                    </div>';
 			}

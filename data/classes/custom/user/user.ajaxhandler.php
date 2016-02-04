@@ -25,7 +25,7 @@ switch ($_POST['action']) {
         $return = $this->user->sendMessage($_POST['values']['text'], $_POST['values']['recipientId']);
 
         if ($return !== false) {
-            echo json_encode(array('status' => 1, 'time' => date('d.m.Y H:i'), 'msgid' => $return, 'profilepic' => $this->user->get('profilepic')));
+            echo json_encode(array('status' => 1, 'time' => date('d.m.Y H:i'), 'msgid' => $return, 'profilepic' => $this->user->get('profilepic'), 'username'=>$this->user->get('firstname') . ' ' . $this->user->get('lastname')));
         }
         break;
 
