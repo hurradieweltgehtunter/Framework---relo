@@ -67,12 +67,7 @@ $(document).ready(function(){
 			},
 			password: $('form_register #password').val(),
 			password2: $('form_register #password2').val(),
-			storeLogin: function(){
-        		if( $('#form_register #storelogin').is(':checked') ) 
-        			return 1;
-        		else
-        			return 0;
-        	}
+			storeLogin: 0
 		};
 
 		$(this).find('input:not([type="submit"])').each(function(){
@@ -95,6 +90,7 @@ $(document).ready(function(){
 				}
 				else
 				{
+					$('#form_register').find('.ajaxloader').hide().removeClass('AJAXrotate');
 					$('#errorbox_register').html(rdata.status).css({display: "inline-block"});
 				}
 			}

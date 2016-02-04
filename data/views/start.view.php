@@ -68,7 +68,7 @@
 
                                     <div class="form-group">
                                         <label for="zip">Postleitzahl</label>
-                                        <input type="text" class="form-control autosave" id="zip" value="<?php echo $this->user->data['zip']; ?>">
+                                        <input type="text" class="form-control autosave onlynumeric" id="zip" value="<?php echo $this->user->data['zip']; ?>">
                                     </div>
 
                                     <div class="form-group">

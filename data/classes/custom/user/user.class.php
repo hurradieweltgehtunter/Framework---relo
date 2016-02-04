@@ -15,6 +15,8 @@ class User
 
     public $pathProfilePicThumb = '../data/img/_users/_thumbs/';
 
+    public $pathUserImage = 'data/img/_users/';
+
     public static $me = null;
 
 
@@ -55,6 +57,10 @@ class User
 
         if ($data['data']['mail'] == '') {
             $user->errmsg = Texter::get('user|registrationNoMailFail');
+        }
+
+        if (!filter_var($data['data']['mail'], FILTER_VALIDATE_EMAIL)) {
+            $user->errmsg = Texter::get('user|registrationNoValidMail');
         }
 
         database::Query('SELECT * FROM users WHERE mail=:var1', array('var1' => $data['data']['mail']), $stats);
@@ -150,7 +156,7 @@ class User
         $errmsg = false;
 
         if (strlen($rawPassword) < 6) {
-            $errmsg = Texter::get('user|passwordTooShort');
+            $errmsg = Texter::get('user|registrationPasswordTooShort');
         }
 
         if ($errmsg === false) {
@@ -396,5 +402,18 @@ class User
         $im->crop($x1, $y1, $x2, $y2); // takes care of out of boundary conditions automatically
         $im->resample(50, 50, true);
         $im->save($this->pathProfilePicThumb . $this->get('profilepic'));
+    }
+
+    public function deleteImage($fileId)
+    {
+        $result = false;
+        if (file_exists($this->pathUserImage . $this->files[$fileId]['filename'])) {
+            if (unlink($this->pathUserImage . $this->files[$fileId]['filename']) === true) {
+                database::Query('DELETE FROM files WHERE id=:var1', array('var1'=>$fileId));
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 }//end class

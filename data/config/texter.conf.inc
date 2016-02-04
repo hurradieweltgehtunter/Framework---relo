@@ -7,6 +7,8 @@ $_txtr['client']['sendNewPassword']     = 'Neues Password versendet';
 $_txtr['client']['sendNewPasswordfail'] = 'Beim Versenden der Mail ist ein Fehler aufgetreten.';
 
 $_txtr['user']['registrationNoMailFail']       = 'Keine E-Mail-Adresse angegeben';
+$_txtr['user']['registrationNoValidMail']      = 'Die angegebene E-Mail-Adresse ist nicht gültig.';
+
 $_txtr['user']['registrationPasswordTooShort'] = 'Dieses Passwort ist zu kurz';
 $_txtr['user']['passwordNotEqualFail']     	   = 'Passwörter stimmen nicht überein.';
 $_txtr['user']['registrationMailFail']         = 'Diese E-Mail-Adresse ist bereits registriert.';

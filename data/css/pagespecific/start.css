@@ -136,6 +136,26 @@ input, input:active, input:focus {
   transform: translateY(-50%) translateX(-50%);
 }
 
+.img-toolbar {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  font-size: 20px;
+  height: 32px;
+  background: url('../../img/bg_white_40perc.png');
+  padding: 5px;
+}
+
+.img-toolbar .glyphicon {
+  margin: 0 2px;
+  cursor: pointer;
+}
+
+.glyphicon-fullscreen {
+      font-size: 18px;
+}
+    
+
 /* TAB IMAGES END */
 
 /* TAB MESSAGES */

@@ -55,7 +55,7 @@ function appendNewImage(file){
 
 	//$('<div class="row imgrow new" style="opacity: 0;"><div class="imgrow_bg"></div><div class="col-sm-3"><div class="img_wrap"><img src="' + file.filename + '" /></div></div><div class="col-sm-9"><form class="form-horizontal"><div class="form-group"><label for="inputEmail3" class="col-sm-3 control-label">Hochgeladen am</label><div class="col-sm-9"><input type="email" class="form-control" id="inputEmail3" placeholder="Email" value="' + file.date + '" disabled></div></div><div class="form-group"><label for="inputPassword3" class="col-sm-3 control-label">Dein Kommentar</label><div class="col-sm-9"><textarea class="form-control" rows="3"></textarea></div></div></form></div></div>').insertAfter('#dropzonerow');
 
-	$('<div class="row imgrow"><div class="col-sm-3"><div class="img_wrap"><img src="' + file.filename + '" /></div></div><div class="col-sm-9"><form class="form-horizontal"><div class="row"><div class="col-sm-3"><div class="form-group"><label>ID</label><input type="text" class="form-control" value="' + file.id + '" disabled></div></div><div class="col-sm-3 col-sm-offset-1"><div class="form-group"><label>Hochgeladen am</label><input type="text" class="form-control" value="' + file.date + '" disabled></div></div></div><div class="form-group"><label for="known_from">Dein Kommentar</label><textarea class="form-control imgcomment" data-id="' + file.id + '" rows="3"></textarea></div></form></div></div>').insertAfter('#dropzonerow');
+	$('<div class="row imgrow" data-image-id="' + file.id + '"><div class="col-sm-3"><div class="img_wrap"><img src="' + file.filename + '" /></div></div><div class="col-sm-9"><form class="form-horizontal"><div class="row"><div class="col-sm-3"><div class="form-group"><label>ID</label><input type="text" class="form-control" value="' + file.id + '" disabled></div></div><div class="col-sm-3 col-sm-offset-1"><div class="form-group"><label>Hochgeladen am</label><input type="text" class="form-control" value="' + file.date + '" disabled></div></div></div><div class="form-group"><label for="known_from">Dein Kommentar</label><textarea class="form-control imgcomment" data-id="' + file.id + '" rows="3"></textarea></div></form></div></div>').insertAfter('#dropzonerow');
 
 	$('.imgrow.new').animate({opacity: 1}, 500);
 	$('.imgrow.new .imgrow_bg').animate({opacity: 0}, 1200, function(){
@@ -134,7 +134,6 @@ $(document).ready(function(){
 	//Dropzone for userimages (#gallery)
 	myDropzone = $('#dropzoneform').dropzone({ 
 		url: "upload",
-		maxFilesize: 5,
 		uploadMultiple: true,
 		sending: function(file, xhr, formData) {
 		    formData.append("action", "userimage");
@@ -161,10 +160,11 @@ $(document).ready(function(){
 	    		});
 	  	},
 	  	error: function(file, response) {
+	        var message;
 	        if($.type(response) === "string")
-	            var message = response; //dropzone sends it's own error messages in string
+	            message = response; //dropzone sends it's own error messages in string
 	        else
-	            var message = response.message;
+	            message = response.message;
 	        file.previewElement.classList.add("dz-error");
 	        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
 	        _results = [];
@@ -173,14 +173,13 @@ $(document).ready(function(){
 	            _results.push(node.textContent = message);
 	        }
 	        return _results;
-	    }   
+	    } 
 	});
 
 	/* PROFILE PIC */
 	myDropzone = $('#dropzoneform_profilepic').dropzone({ 
 		url: "upload",
-		maxFilesize: 1,
-		uploadMultiple: true,
+		uploadMultiple: false,
 		dictDefaultMessage: 'Profilbild hier ablegen',
 		sending: function(file, xhr, formData) {
 		    formData.append("action", "profilepic");
@@ -188,7 +187,7 @@ $(document).ready(function(){
 		init: function() {
 	    	this.on("success", function(file, response) 
 	    		{ 
-	    			var rdata = jQuery.parseJSON(response)
+	    			var rdata = jQuery.parseJSON(response);
 	    			if(rdata.status == 1)
 	    			{
 	    				$('.profilpic_container').html('<img class="profilepic" src="' + rdata.file.filename + '" />');
@@ -208,10 +207,12 @@ $(document).ready(function(){
 	    		});
 	  	},
 	  	error: function(file, response) {
+	        var message;
+
 	        if($.type(response) === "string")
-	            var message = response; //dropzone sends it's own error messages in string
+	        	message = response; //dropzone sends it's own error messages in string
 	        else
-	            var message = response.message;
+	            message = response.message;
 	        file.previewElement.classList.add("dz-error");
 	        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
 	        _results = [];
@@ -271,6 +272,32 @@ $(document).ready(function(){
         });
 		return false;
 	});
+
+	/* TAB IMAGES */
+
+	$('#gallery').on('click', '.img-toolbar .remove', function(){
+		$(this).parents('.imgrow').addClass('deleteThisImage');
+		bootbox.confirm("Dieses Bild löschen?", function(result) {
+			if(result === true) {
+
+				$.postJSONsecure({
+		            module: "user",
+		            action: "deleteImage",
+		            values: {
+		            	dataId: $('.imgrow.deleteThisImage').attr('data-image-id')
+		            }
+		        }, 
+		        function(rdata){
+		        	if(rdata.success == 1) {
+		        		$('.imgrow[data-image-id="' + rdata.dataId + '"]').remove();
+		        	} else
+		        		notify(rdata.errmsg);
+		        });
+			}
+		}); 
+	});
+
+	/* ---------- */
 
 	/* TAB MESSAGES */
 	$('.chatinput_wrap form').on('submit', function(e){

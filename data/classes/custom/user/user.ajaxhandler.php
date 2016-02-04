@@ -85,6 +85,18 @@ switch ($_POST['action']) {
         }
         break;
 
+
+    case 'deleteImage':
+
+        $user = new User($_SESSION['user_id']);
+
+        if ($user->deleteImage($_POST['values']['dataId']) === true) {
+            echo json_encode(array('success'=>1, 'dataId'=>$_POST['values']['dataId']));
+        } else {
+            echo json_encode(array('success'=>0, 'msg'=>'test'));
+        }
+        break;
+
     default:
         echo json_encode(array('errmsg' => Texter::get('system|unknownRequest', array($_POST['module']))));
         break;

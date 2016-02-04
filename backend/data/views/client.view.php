@@ -67,7 +67,7 @@ $pioneer = new user(request::get(1));
 
                                     <div class="form-group">
                                         <label for="zip">Postleitzahl *</label>
-                                        <input type="text" class="form-control autosave" id="zip" value="<?php echo $pioneer->get('zip'); ?>">
+                                        <input type="text" class="form-control autosave onlynumeric" id="zip" value="<?php echo $pioneer->get('zip'); ?>">
                                     </div>
 
                                     <div class="form-group">

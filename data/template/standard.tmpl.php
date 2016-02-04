@@ -76,6 +76,7 @@
         
         <script src="data/js/basic/jquery-2.1.4.min.js"></script>
         <script src="data/js/basic/bootstrap.min.js"></script>
+        <script src="data/js/basic/bootbox.min.js"></script>
 
         <script src="data/js/vendor/jquery.backstretch.min.js"></script>
         <script src="data/js/vendor/bootstrap.tab.js"></script>
@@ -85,7 +86,7 @@
         <script src="data/js/basic.js"></script>
 
         <?php
-        foreach($this->jsContents as $jsFile)
+        foreach ($this->jsContents as $jsFile)
             echo '<script src="' . $jsFile . '"></script>' . "\n";
         ?>
     </body>

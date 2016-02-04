@@ -1,6 +1,4 @@
 <?php
-
-
 logging::log(10, $_SESSION['user']);
 
 session_destroy();
